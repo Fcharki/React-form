@@ -23,11 +23,11 @@ export default function CompoTable() {
 
   // Function to save the edited data
   const saveEditedData = () => {
-    const updatedFormData = [...formData];
-    updatedFormData[editedIndex] = editedData;
+    const updatedForm = [...formData];
+    updatedForm[editedIndex] = editedData;
 
-    setFormData(updatedFormData);
-    localStorage.setItem('formData', JSON.stringify(updatedFormData));
+    setFormData(updatedForm);
+    localStorage.setItem('formData', JSON.stringify(updatedForm));
 
     // Reset editing state
     setIsEditing(false);
