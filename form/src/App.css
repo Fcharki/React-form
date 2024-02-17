@@ -1,0 +1,21 @@
+.wrapper{
+  padding: 20px;
+  font-size: 25px;
+  background-color: #6cc4f0;
+}
+
+.wrapper input, select{
+  padding: 6px;
+  border-radius: 6px;
+  margin: 5px;
+  border: 2px solid;
+}
+
+.wrapper .buttons{
+  margin: 6px;
+}
+
+.wrapper input:focus{
+  background-color: rgb(244, 224, 68);
+  border: 2px solid black;
+}
