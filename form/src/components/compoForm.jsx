@@ -108,7 +108,6 @@ let padding = {paddingRight:"15px"};
                 <td><label>Filière : </label></td>
                 <td>
                 <select  className="form-control focus" value={filiere} onChange= {e =>setFiliere(e.target.value)}>
-                    <option value=""></option>
                     <option value="Développement Digital">Développement Digital</option>
                     <option value="Infrastructure Digital">Infrastructure Digital</option>
                     <option value="Design Digital">Design Digital</option>
@@ -135,7 +134,7 @@ let padding = {paddingRight:"15px"};
             <tr>
                 <td>
                 <div>
-                CIN Recto : <input  type="file" accept='image/*'  onChange={handleFileChange}/>
+                CIN Recto : <input  type="file" className='bg-light' accept='image/*'  onChange={handleFileChange}/>
                     {preview && (
                     <div>
                     <h4>Image Preview:</h4>
@@ -148,8 +147,8 @@ let padding = {paddingRight:"15px"};
                 </td>
             </tr>
             <tr>
-                <button class="btn btn-primary p-1 btn-outline-dark text-white buttons" type="submit">Enregister</button>
-                <button class="btn btn-warning p-1 btn-outline-dark buttons" onClick={reset}  type="reset">Reset</button>
+                <button class="btn btn-primary p-1  text-white buttons" type="submit">Enregister</button>
+                <button class="btn btn-warning p-1 buttons" onClick={reset}  type="reset">Reset</button>
             </tr>
         </form>
 

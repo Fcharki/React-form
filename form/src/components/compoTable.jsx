@@ -39,7 +39,7 @@ export default function CompoTable() {
     <div className='bg-light'  style={{fontSize: "16px", paddingLeft: '20px'}} >
       <button
         type="button"
-        className='btn btn-light text-dark my-1'
+        className='btn btn-danger text-white rf-bold my-1'
         onClick={() => {
           localStorage.clear();
           setFormData([]);
