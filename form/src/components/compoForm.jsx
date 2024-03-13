@@ -86,8 +86,8 @@ const  handleFileChange = (e) => {
 
 let padding = {paddingRight:"15px"};
     return (
-        <form className="form-group wrapper container" style={{fontSize: "16px"}} onSubmit={handleSubmit}>
-            <h2 style={{color: 'black'}}>Veuillez saisir vos données..</h2>
+        <form className="form-group wrapper" style={{fontSize: "16px"}} onSubmit={handleSubmit}>
+            <h3 style={{color: 'black'}}>Veuillez saisir vos données..</h3>
             <tr>
                 <td><label>Nom : </label></td>
                 <td><input className="form-control focus" autoFocus='autofocus' type='text' value={nom} onChange = {e =>setNom(e.target.value)}/></td>
@@ -138,7 +138,7 @@ let padding = {paddingRight:"15px"};
                 CIN Recto : <input  type="file" accept='image/*'  onChange={handleFileChange}/>
                     {preview && (
                     <div>
-                    <h2>Preview:</h2>
+                    <h4>Image Preview:</h4>
                     <img src={preview} alt="Preview" style={{ maxWidth: '50%' }} />
                     </div>
                     )}

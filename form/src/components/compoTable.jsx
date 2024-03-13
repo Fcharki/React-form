@@ -36,7 +36,7 @@ export default function CompoTable() {
   };
 
   return (
-    <div className='bg-success container'  style={{fontSize: "16px", paddingLeft: '20px'}} >
+    <div className='bg-light'  style={{fontSize: "16px", paddingLeft: '20px'}} >
       <button
         type="button"
         className='btn btn-light text-dark my-1'
@@ -92,7 +92,7 @@ export default function CompoTable() {
       </table>
 
       {isEditing && (
-        <div style={{margin: "8px", maxWidth: '35%'}}>
+        <div className='bg-info p-3' style={{margin: "8px", maxWidth: '35%'}}>
          <h3>Formulaire de modification:</h3>
           <label>Nom:</label>
             <input  className="form-control"

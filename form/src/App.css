@@ -4,6 +4,7 @@
   background-color: #6cc4f0;
 }
 
+
 .wrapper input, select{
   padding: 6px;
   border-radius: 6px;
@@ -16,6 +17,5 @@
 }
 
 .wrapper input:focus{
-  background-color: rgb(244, 224, 68);
   border: 2px solid black;
 }
