@@ -1,11 +1,11 @@
 import React from 'react';
-import ParentCompo from './components/cpParent';
+import Parent from './components/Parent';
 import './App.css'
 
 function App() {
   return (
     <div className='app'>
- <ParentCompo/>
+      <Parent/>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 
-export default function CompoTable() {
+export default function Table() {
   const [formData, setFormData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({});
