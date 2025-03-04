@@ -153,63 +153,67 @@ return (
             </select>
         </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label style={{ fontWeight: 'bold', color: '#444' }}>Niveau :</label>
-            <div className="form-check form-check-inline">
-                <input 
-                    className="form-check-input" 
-                    type="radio" 
-                    onChange={SelectRadio} 
-                    name="formation" 
-                    value="Technicien Spécialisé" 
-                />
-                <label className="form-check-label" style={{ paddingLeft: '10px' }}>Technicien Spécialisé</label>
+                <div className="form-group" style={{ marginBottom: '20px' }}>
+            <label style={{ fontWeight: 'bold', color: '#444', fontSize: '16px' }}>Niveau : </label>
+            <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+                <div className="form-check">
+                    <input 
+                        className="form-check-input" 
+                        type="radio" 
+                        onChange={SelectRadio} 
+                        name="formation" 
+                        value="Technicien Spécialisé" 
+                    />
+                    <label className="form-check-label" style={{ paddingLeft: '0px' }}>Technicien Spécialisé</label>
+                </div>
+                <div className="form-check">
+                        <input 
+                            className="form-check-input" 
+                            type="radio" 
+                            onChange={SelectRadio} 
+                            name="formation" 
+                            value="Technicien" 
+                        />
+                        <label className="form-check-label" style={{ paddingLeft: '0px' }}>Technicien</label>
+                    </div>
+                    <div className="form-check">
+                        <input 
+                            className="form-check-input" 
+                            type="radio" 
+                            onChange={SelectRadio} 
+                            name="formation" 
+                            value="Formation Qualifiante" 
+                        />
+                        <label className="form-check-label" style={{ paddingLeft: '0px' }}>Formation Qualifiante</label>
+                    </div>
+                </div>
             </div>
-            <div className="form-check form-check-inline">
-                <input 
-                    className="form-check-input" 
-                    type="radio" 
-                    onChange={SelectRadio} 
-                    name="formation" 
-                    value="Technicien" 
-                />
-                <label className="form-check-label" style={{ paddingLeft: '10px' }}>Technicien</label>
-            </div>
-            <div className="form-check form-check-inline">
-                <input 
-                    className="form-check-input" 
-                    type="radio" 
-                    onChange={SelectRadio} 
-                    name="formation" 
-                    value="Formation Qualifiante" 
-                />
-                <label className="form-check-label" style={{ paddingLeft: '10px' }}>Formation Qualifiante</label>
-            </div>
-        </div>
 
-        <div className="form-group" style={{ marginBottom: '15px' }}>
-            <label style={{ fontWeight: 'bold', color: '#444' }}>Etat de formation :</label>
-            <div className="form-check form-check-inline">
-                <input 
-                    className="form-check-input" 
-                    onChange={SelectCheckBox} 
-                    type="checkbox" 
-                    name="" 
-                    value="En cours" 
-                />
-                <label className="form-check-label" style={{ paddingLeft: '10px' }}>En cours</label>
+            <div className="form-group" style={{ marginBottom: '20px' }}>
+                <label style={{ fontWeight: 'bold', color: '#444', fontSize: '16px' }}>Etat de formation : </label>
+                <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+                    <div className="form-check">
+                        <input 
+                            className="form-check-input" 
+                            onChange={SelectCheckBox} 
+                            type="checkbox" 
+                            name="" 
+                            value="En cours" 
+                        />
+                        <label className="form-check-label" style={{ paddingLeft: '0px' }}>En cours</label>
+                    </div>
+                    <div className="form-check">
+                        <input 
+                            className="form-check-input" 
+                            onChange={SelectCheckBox} 
+                            type="checkbox" 
+                            name="" 
+                            value="Diplôme" 
+                        />
+                        <label className="form-check-label" style={{ paddingLeft: '0px' }}>Diplômé</label>
+                    </div>
+                </div>
             </div>
-            <div className="form-check form-check-inline">
-                <input 
-                    className="form-check-input" 
-                    onChange={SelectCheckBox} 
-                    type="checkbox" 
-                    name="" 
-                    value="Diplôme" 
-                />
-                <label className="form-check-label" style={{ paddingLeft: '10px' }}>Diplômé</label>
-            </div>
-        </div>
 
         <div className="form-group" style={{ marginBottom: '20px' }}>
             <label style={{ fontWeight: 'bold', color: '#444' }}>CIN Recto :</label>
