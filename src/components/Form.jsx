@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import '../App.css';
 
-export default function CompoForm() {
+export default function Form() {
     const[nom, setNom] = useState('');
     const[prenom, setPrenom] = useState('');
     const[email, setEmail] = useState('');
