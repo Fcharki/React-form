@@ -1,8 +1,20 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import Form from './Form';
 import Table from './Table';
 
 export default function Parent() {
+    const [formData, setFormData] = useState(() => {
+        try {
+            return JSON.parse(localStorage.getItem('formData')) || [];
+        } catch (error) {
+            return [];
+        }
+    });
+
+    useEffect(() => {
+        localStorage.setItem('formData', JSON.stringify(formData));
+    }, [formData]);
+
     return (
         <div 
             style={{
@@ -18,12 +30,10 @@ export default function Parent() {
             }}
         >
             <div style={{ flex: '1', backgroundColor: 'white', borderRadius: '8px', padding: '20px' }}>
-                <h3 style={{ color: '#333', textAlign: 'center' }}>Formulaire</h3>
-                <Form />
+                <Form setFormData={setFormData} />
             </div>
             <div style={{ flex: '1', backgroundColor: 'white', borderRadius: '8px', padding: '20px' }}>
-                <h3 style={{ color: '#333', textAlign: 'center' }}>Tableau</h3>
-                <Table />
+                <Table formData={formData} setFormData={setFormData} />
             </div>
         </div>
     );

@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import '../App.css';
 
-export default function Form() {
+export default function Form({ setFormData }) {
     const[nom, setNom] = useState('');
     const[prenom, setPrenom] = useState('');
     const[email, setEmail] = useState('');
@@ -9,7 +10,6 @@ export default function Form() {
     const[filiere, setFiliere] = useState('');
     const[niveau, setNiveau] = useState('');
     const[EtatFormation, setEtatFormation] = useState('');
-    const[preview, setpreview] = useState(null);
 
 //* checkbox
     function SelectCheckBox(e){
@@ -25,7 +25,7 @@ export default function Form() {
     //* saving data in a json file
     
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Create an object with form data
@@ -39,19 +39,28 @@ export default function Form() {
       EtatFormation,
     };
 
-
-  
-    // Save data to local storage (for demonstration purposes)
-    saveToLocalstorage(formData);
+    // Persist to local storage, then share the new entry with the table
+    try {
+      await saveToLocalstorage(formData);
+      setFormData((prev) => [...prev, formData]);
+      reset();
+    } catch (error) {
+      console.error("Erreur lors de l'enregistrement :", error);
+    }
   };
 
   // Function to save data to local storage
   const saveToLocalstorage = (data) => {
-    const storedData = JSON.parse(localStorage.getItem('formData')) || [];
-    storedData.push(data);
-    localStorage.setItem('formData', JSON.stringify(storedData));
-    alert('Données enregistrées!');
-    console.log(storedData)
+    return new Promise((resolve, reject) => {
+      try {
+        const storedData = JSON.parse(localStorage.getItem('formData')) || [];
+        storedData.push(data);
+        localStorage.setItem('formData', JSON.stringify(storedData));
+        resolve(storedData);
+      } catch (error) {
+        reject(error);
+      }
+    });
   };
 
     // reset 
@@ -64,30 +73,12 @@ export default function Form() {
         setFiliere('');
         setNiveau('');
         setEtatFormation('');
-        setpreview('');
     }
-
-  
-const  handleFileChange = (e) => {
-       const file = e.target.files[0];
-   
-       if (file) {
-         const reader = new FileReader();
-   
-         reader.onloadend = () => {
-           setpreview(reader.result);
-         };
-   
-         reader.readAsDataURL(file);
-       } else {
-         setpreview(null);
-       }
-     };
 
 return (
     <form className="form-group wrapper" style={{ fontSize: "16px", padding: "20px", maxWidth: "800px", margin: "auto", borderRadius: "8px", backgroundColor: "#f9f9f9" }} onSubmit={handleSubmit}>
-        <h3 style={{ color: '#333', textAlign: 'center', marginBottom: '20px' }}>Veuillez saisir vos données</h3>
-        
+        <h3 style={{ color: '#333', textAlign: 'center' }}>Formulaire</h3>
+        <p style={{ color: '#575656', textAlign: 'center', marginBottom: '20px' }}>Veuillez saisir vos données</p>
         <div className="form-row" style={{ marginBottom: '15px' }}>
             <div className="col-12 col-md-6">
                 <label style={{ fontWeight: 'bold', color: '#444' }}>Nom :</label>
@@ -214,24 +205,6 @@ return (
                     </div>
                 </div>
             </div>
-
-        <div className="form-group" style={{ marginBottom: '20px' }}>
-            <label style={{ fontWeight: 'bold', color: '#444' }}>CIN Recto :</label>
-            <input 
-                type="file" 
-                className="form-control bg-light" 
-                accept="image/*"  
-                onChange={handleFileChange} 
-                style={{ borderRadius: '5px', padding: '10px' }}
-            />
-            {preview && (
-                <div style={{ marginTop: '10px' }}>
-                    <h4>Image Preview:</h4>
-                    <img src={preview} alt="Preview" style={{ maxWidth: '50%' }} />
-                </div>
-            )}
-        </div>
-
         <div className="form-group d-flex justify-content-center" style={{ marginTop: '30px' }}>
             <button className="btn btn-primary p-2 text-white mx-2" type="submit" style={{ borderRadius: '5px', width: '150px' }}>Enregistrer</button>
             <button className="btn btn-warning p-2 mx-2" onClick={reset} type="reset" style={{ borderRadius: '5px', width: '150px' }}>Reset</button>
@@ -239,4 +212,8 @@ return (
     </form>
 );
 
-} 
+}
+
+Form.propTypes = {
+    setFormData: PropTypes.func.isRequired,
+}; 

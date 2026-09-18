@@ -1,33 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import '../App.css';
 
-export default function Table() {
-  const [formData, setFormData] = useState([]);
+export default function Table({ formData, setFormData }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({});
   const [editedIndex, setEditedIndex] = useState(null);
 
-  useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('formData')) || [];
-    setFormData(storedData);
-  }, []);
-
   // Function to delete a row
   const deleteRow = (index) => {
-    const updatedData = [...formData];
-    updatedData.splice(index, 1);
-
+    const updatedData = formData.filter((_, i) => i !== index);
     setFormData(updatedData);
-    localStorage.setItem('formData', JSON.stringify(updatedData));
   };
 
   // Function to save the edited data
   const saveEditedData = () => {
-    const updatedForm = [...formData];
-    updatedForm[editedIndex] = editedData;
+    const updatedForm = formData.map((item, i) =>
+      i === editedIndex ? editedData : item
+    );
 
     setFormData(updatedForm);
-    localStorage.setItem('formData', JSON.stringify(updatedForm));
 
     // Reset editing state
     setIsEditing(false);
@@ -36,109 +28,203 @@ export default function Table() {
   };
 
   return (
-    <div className='bg-light'  style={{fontSize: "16px", paddingLeft: '20px'}} >
-      <button
-        type="button"
-        className='btn btn-danger text-white rf-bold my-1'
-        onClick={() => {
-          localStorage.clear();
-          setFormData([]);
-        }}
-      >
-        Clear storage
-      </button>
-      <h2>Table de données</h2>
-      <table style={{ width: 'auto' }} className="table table-info table-bordered table-hover  text-center m-2">
-        <thead className="thead-dark">
-          <tr className="table-success">
-            <th scope="col">Nom</th>
-            <th scope="col">Prenom</th>
-            <th scope="col">Email</th>
-            <th scope="col">Date de naissance</th>
-            <th scope="col">Filiere</th>
-            <th scope="col">Niveau</th>
-            <th scope="col">Etat de formation</th>
-            <th colSpan="2">Traitements</th>
-          </tr>
-        </thead>
-        <tbody>
-          {formData.map((data, index) => (
-            <tr key={index}>
-              <td scope="row">{data?.nom}</td>
-              <td scope="row">{data?.prenom}</td>
-              <td scope="row">{data?.email}</td>
-              <td scope="row">{data?.dateNaissance}</td>
-              <td scope="row">{data?.filiere}</td>
-              <td scope="row">{data?.niveau}</td>
-              <td scope="row">{data?.EtatFormation}</td>
-              <td colSpan='2'>
-                <button
-                  className="btn btn-success m-1"
-                  onClick={() => {
-                    setIsEditing(true);
-                    setEditedData(data);
-                    setEditedIndex(index);
-                  }}
-                >
-                  Modifier
-                </button>
-                <button className="btn btn-warning m-1" onClick={() => deleteRow(index)}>
-                  Supprimer
-                </button>
-              </td>
+    <div className="bg-light p-4">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h3 className="mb-0" style={{ color: '#333' }}>
+          Tableau
+        </h3>
+
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={() => setFormData([])}
+        >
+          Clear storage
+        </button>
+      </div>
+
+      <p className="mb-3">Table de données</p>
+
+      <div className="table-responsive">
+        <table className="table table-info table-bordered table-hover text-center align-middle">
+          <thead>
+            <tr className="table-success">
+              <th scope="col">Nom</th>
+              <th scope="col">Prenom</th>
+              <th scope="col">Email</th>
+              <th scope="col">Date de naissance</th>
+              <th scope="col">Filiere</th>
+              <th scope="col">Niveau</th>
+              <th scope="col">Etat de formation</th>
+              <th colSpan="2">Traitements</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {formData.map((data, index) => (
+              <tr key={index}>
+                <td>{data?.nom}</td>
+                <td>{data?.prenom}</td>
+                <td>{data?.email}</td>
+                <td>{data?.dateNaissance}</td>
+                <td>{data?.filiere}</td>
+                <td>{data?.niveau}</td>
+                <td>{data?.EtatFormation}</td>
+
+                <td colSpan="2">
+                  <button
+                    className="btn btn-success btn-sm me-2"
+                    onClick={() => {
+                      setIsEditing(true);
+                      setEditedData(data);
+                      setEditedIndex(index);
+                    }}
+                  >
+                    Modifier
+                  </button>
+
+                  <button
+                    className="btn btn-warning btn-sm"
+                    onClick={() => deleteRow(index)}
+                  >
+                    Supprimer
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {isEditing && (
-        <div className='bg-info p-3' style={{margin: "8px", maxWidth: '35%'}}>
-         <h3>Formulaire de modification:</h3>
-          <label>Nom:</label>
-            <input  className="form-control"
+        <div
+          className="bg-light p-4 rounded shadow-sm mt-4"
+          style={{ maxWidth: '500px' }}
+        >
+          <h3 className="mb-4 text-center">
+            Formulaire de modification
+          </h3>
+
+          <div className="mb-3">
+            <label className="form-label">Nom:</label>
+            <input
+              className="form-control"
               type="text"
               value={editedData.nom || ''}
-              onChange={(e) => setEditedData({ ...editedData, nom: e.target.value })}
+              onChange={(e) =>
+                setEditedData({
+                  ...editedData,
+                  nom: e.target.value,
+                })
+              }
             />
-          <label>Prenom:</label>
-            <input  className="form-control"
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Prénom:</label>
+            <input
+              className="form-control"
               type="text"
               value={editedData.prenom || ''}
-              onChange={(e) => setEditedData({ ...editedData, prenom: e.target.value })}
+              onChange={(e) =>
+                setEditedData({
+                  ...editedData,
+                  prenom: e.target.value,
+                })
+              }
             />
-          <label>Email: </label>
-            <input  className="form-control"
-              type="text"
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Email:</label>
+            <input
+              className="form-control"
+              type="email"
               value={editedData.email || ''}
-              onChange={(e) => setEditedData({ ...editedData, email: e.target.value })}
+              onChange={(e) =>
+                setEditedData({
+                  ...editedData,
+                  email: e.target.value,
+                })
+              }
             />
-          <label>Date de naissance:</label>
-            <input  className="form-control"
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Date de naissance:</label>
+            <input
+              className="form-control"
               type="date"
               value={editedData.dateNaissance || ''}
-              onChange={(e) => setEditedData({ ...editedData, dateNaissance: e.target.value })}
+              onChange={(e) =>
+                setEditedData({
+                  ...editedData,
+                  dateNaissance: e.target.value,
+                })
+              }
             />
-          <label>Filiere:</label>
-            <input  className="form-control"
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Filière:</label>
+            <input
+              className="form-control"
               type="text"
               value={editedData.filiere || ''}
-              onChange={(e) => setEditedData({ ...editedData, filiere: e.target.value })}
+              onChange={(e) =>
+                setEditedData({
+                  ...editedData,
+                  filiere: e.target.value,
+                })
+              }
             />
-          <label>Niveau:</label>
-            <input  className="form-control"
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Niveau:</label>
+            <input
+              className="form-control"
               type="text"
               value={editedData.niveau || ''}
-              onChange={(e) => setEditedData({ ...editedData, niveau: e.target.value })}
+              onChange={(e) =>
+                setEditedData({
+                  ...editedData,
+                  niveau: e.target.value,
+                })
+              }
             />
-          <label>Etat de formation:</label>
-            <input  className="form-control"
+          </div>
+
+          <div className="mb-4">
+            <label className="form-label">État de formation:</label>
+            <input
+              className="form-control"
               type="text"
               value={editedData.EtatFormation || ''}
-              onChange={(e) => setEditedData({ ...editedData, EtatFormation: e.target.value })}
+              onChange={(e) =>
+                setEditedData({
+                  ...editedData,
+                  EtatFormation: e.target.value,
+                })
+              }
             />
-          <button style={{float: 'right', width: '100%'}} class="btn btn-md btn-success m-3" onClick={saveEditedData}>Save</button>
+          </div>
+
+          <div className="d-grid">
+            <button
+              className="btn btn-success"
+              onClick={saveEditedData}
+            >
+              Enregistrer
+            </button>
+          </div>
         </div>
       )}
     </div>
   );
 }
+
+Table.propTypes = {
+  formData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setFormData: PropTypes.func.isRequired,
+};
