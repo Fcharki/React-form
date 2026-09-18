@@ -65,12 +65,9 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 | `npm run build`    | Build the app for production             |
 | `npm run preview`  | Preview the production build locally     |
 | `npm run lint`     | Run ESLint with zero-warning policy      |
-| `npm run deploy`   | Build and deploy to GitHub Pages         |
 
 ## Deployment
 
-The app is configured for GitHub Pages via `gh-pages`. The homepage URL is set in `package.json`:
+The app is deployed to GitHub Pages automatically with **GitHub Actions** — pushing to `main` triggers the `.github/workflows/deploy.yml` workflow, which lints, builds, uploads the `dist` output as a Pages artifact, and deploys it.
 
-```bash
-npm run deploy
-```
+For the workflow to deploy, the Pages source must be set to **GitHub Actions** in the repository settings (Settings → Pages → Build and deployment → Source). The Vite `base` is configured as `/React-form/` to match the `https://<owner>.github.io/React-form/` URL.
