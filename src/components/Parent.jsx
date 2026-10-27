@@ -6,7 +6,7 @@ export default function Parent() {
     const [formData, setFormData] = useState(() => {
         try {
             return JSON.parse(localStorage.getItem('formData')) || [];
-        } catch (error) {
+        } catch {
             return [];
         }
     });
